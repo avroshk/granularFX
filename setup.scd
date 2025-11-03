@@ -2,7 +2,14 @@
 // 1. Add custom granularFX Classes to local extensions directory
 
 var classDefFile = thisProcess.nowExecutingPath.dirname +/+ "granularFXClasses.sc";
-var target = Platform.userExtensionDir +/+ "local" +/+ "granularFXClasses.sc";
+var localDir = Platform.userExtensionDir +/+ "local";
+var target = localDir +/+ "granularFXClasses.sc";
+
+// Create local directory if it doesn't exist
+if (File.exists(localDir).not) {
+	File.mkdir(localDir);
+	"Created local extensions directory.".postln;
+};
 
 if (File.exists(target), { File.delete(target);}, { "Local extensions directory is clean.".postln; });
 if (File.exists(classDefFile)) { File.copy(classDefFile, target); }
